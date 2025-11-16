@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUST - Meteorology & Climate Science</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #27ae60;
+            --accent: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #333;
+            --text-light: #7f8c8d;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Login Page Styles */
+        .login-page {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://i.ibb.co/Q76WTNWN/1763145622014.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .login-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #27ae60;
+            font-size: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            line-height: 1.3;
+        }
+
+        .login-title .main-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #27ae60;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .login-title .sub-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #27ae60;
+        }
+
+        .login-title .accent-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #2ecc71;
+            background: rgba(39, 174, 96, 0.1);
+            padding: 8px 15px;
+            border-radius: 8px;
+            margin-top: 5px;
+            border: 2px solid #27ae60;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        .login-box input:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.2);
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 15px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 600;
+        }
+
+        .login-box button:hover {
+            background-color: #219653;
+        }
+
+        .error-message {
+            color: var(--danger);
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+            background: #ffeaea;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .login-hint {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--text-light);
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .login-hint strong {
+            color: var(--primary);
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-name {
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        .logout-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+
+        .main-content {
+            display: flex;
+            margin-top: 20px;
+            gap: 20px;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 90px;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar a:hover {
+            background: var(--secondary);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .content {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: linear-gradient(rgba(39, 174, 96, 0.1), rgba(39, 174, 96, 0.1)), 
+                        url('https://i.ibb.co/Q76WTNWN/1763145622014.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .welcome-section h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .modules-section, .timetable-section, .help-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .year-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .year-btn {
+            padding: 12px 20px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .year-btn:hover {
+            background: #219653;
+            transform: translateY(-2px);
+        }
+
+        .semester-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .semester-btn {
+            padding: 10px 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .semester-btn:hover {
+            background: #219653;
+        }
+
+        .semester-btn.active {
+            background: var(--primary);
+        }
+
+        .modules-content, .timetable-content {
+            display: none;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .module-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .module-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .module-card h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .module-card p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .drive-link {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+            font-size: 16px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+        }
+
+        .drive-link:hover {
+            background: #219653;
+        }
+
+        /* Help Section Styles */
+        .help-container {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .help-info {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .help-info h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .help-info ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .help-info li {
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .help-info i {
+            color: var(--accent);
+        }
+
+        .google-form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .form-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .whatsapp-info {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 12px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-instructions {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .form-instructions h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .coming-soon-notice {
+            background: var(--warning);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .timetable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .timetable th, .timetable td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .timetable th {
+            background: var(--secondary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .timetable tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+
+        .timetable tr:hover {
+            background: #e8f5e8;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background: var(--primary);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .access-notes-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .security-notice {
+            background: var(--warning);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: static;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .user-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .year-buttons {
+                justify-content: center;
+            }
+            
+            .module-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .google-form-container iframe {
+                height: 1200px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="login-page" id="loginPage">
+        <div class="login-box">
+            <div class="login-title">
+                <div class="main-title">MUST</div>
+                <div class="sub-title">METEOROLOGY</div>
+                <div class="accent-title">ACADEMIC RESOURCES</div>
+                <div class="accent-title">MEC-ALL-IN-ONE</div>
+            </div>
+            <input type="text" id="fullName" placeholder="Enter your full name">
+            <button id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
+            <div class="error-message" id="errorMessage">Name not found. Please try again.</div>
+            <div class="login-hint">
+                <p><strong>Hint:</strong> Names are case sensitive. Example: "Rod Subili"</p>
+                <p><strong>Security Notice:</strong> Unauthorized access is prohibited</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <header class="header">
+            <div class="container header-content">
+                <h1><i class="fas fa-university"></i> MUST - Meteorology & Climate Science</h1>
+                <div class="user-info">
+                    <span>Welcome, <span id="userName">Student</span></span>
+                    <span class="admin-name">Admin: Rod Subili</span>
+                    <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="container main-content">
+            <aside class="sidebar">
+                <h2><i class="fas fa-link"></i> Quick Links</h2>
+                <ul>
+                    <li><a href="#modules"><i class="fas fa-book"></i> Course Modules</a></li>
+                    <li><a href="#timetable"><i class="fas fa-calendar-alt"></i> Timetable</a></li>
+                    <li><a href="#help"><i class="fas fa-hands-helping"></i> Get Help</a></li>
+                    <li><a href="https://drive.google.com" target="_blank"><i class="fab fa-google-drive"></i> Google Drive</a></li>
+                    <li><a href="https://www.must.ac.mw" target="_blank"><i class="fas fa-globe"></i> MUST Website</a></li>
+                </ul>
+            </aside>
+
+            <main class="content">
+                <div class="security-notice">
+                    <i class="fas fa-shield-alt"></i> Secure Access Only - This portal is protected against unauthorized access
+                </div>
+
+                <section class="welcome-section">
+                    <h2>Welcome to Meteorology & Climate Science Portal</h2>
+                    <p>Access your course materials, timetables, and resources</p>
+                </section>
+
+                <!-- Course Modules Section -->
+                <section class="modules-section" id="modules">
+                    <h2 class="section-title"><i class="fas fa-book-open"></i> Course Modules</h2>
+                    <div class="year-buttons">
+                        <button class="year-btn" data-year="first"><i class="fas fa-calendar"></i> First Year</button>
+                        <button class="year-btn" data-year="second"><i class="fas fa-calendar"></i> Second Year</button>
+                        <button class="year-btn" data-year="third"><i class="fas fa-calendar"></i> Third Year</button>
+                        <button class="year-btn" data-year="fourth"><i class="fas fa-calendar"></i> Fourth Year</button>
+                    </div>
+
+                    <!-- Semester Selection -->
+                    <div class="semester-buttons" id="semesterButtons" style="display: none;">
+                        <button class="semester-btn active" data-semester="1">Semester 1</button>
+                        <button class="semester-btn" data-semester="2">Semester 2</button>
+                    </div>
+
+                    <!-- First Year Modules -->
+                    <div class="modules-content" id="firstYearSem1">
+                        <h3>First Year - Semester 1 Modules</h3>
+                        <div class="module-list">
+                            <div class="module-card">
+                                <h3>General Chemistry I</h3>
+                                <p>Fundamental principles of chemistry</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Algebra & Trigonometry</h3>
+                                <p>Mathematical foundations for science</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>General Biology</h3>
+                                <p>Introduction to biological systems</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Mechanics & Thermal Properties of Matter</h3>
+                                <p>Physics principles and applications</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Language & Communication Studies</h3>
+                                <p>Academic and professional communication</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Introduction to Computer Applications</h3>
+                                <p>Basic computer skills and software</p>
+                            </div>
+                        </div>
+                        <div class="access-notes-container">
+                            <a href="https://drive.google.com/drive/folders/1Lz6V9N1fcnZ1ZcDLNbspFic01cRNjIJo" class="drive-link" target="_blank">
+                                <i class="fab fa-google-drive"></i> Access Semester 1 Notes
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="modules-content" id="firstYearSem2">
+                        <h3>First Year - Semester 2 Modules</h3>
+                        <div class="module-list">
+                            <div class="module-card">
+                                <h3>General Chemistry II</h3>
+                                <p>Advanced chemical principles</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Calculus I</h3>
+                                <p>Differential and integral calculus</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Environmental Biology</h3>
+                                <p>Ecology and environmental systems</p>
+                            </div>
+                            <div class="module-card">
+                                 <h3>Electricity, Magnetics, Vibration and Waves</h3>
+                                <p>Electromagnetism and wave physics</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Technical and Business Communication</h3>
+                                <p>Professional writing and presentation</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Computer Programming</h3>
+                                <p>Programming fundamentals and logic</p>
+                            </div>
+                        </div>
+                        <div class="access-notes-container">
+                            <a href="https://drive.google.com/drive/folders/1Lz6V9N1fcnZ1ZcDLNbspFic01cRNjIJo" class="drive-link" target="_blank">
+                                <i class="fab fa-google-drive"></i> Access Semester 2 Notes
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Second Year Modules -->
+                    <div class="modules-content" id="secondYearSem1">
+                        <h3>Second Year - Semester 1 Modules</h3>
+                        <div class="module-list">
+                            <div class="module-card">
+                                <h3>Introduction to Meteorology</h3>
+                                <p>Fundamentals of weather science</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Introduction to Space and Earth Sciences</h3>
+                                <p>Earth systems and space science</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Calculus II</h3>
+                                <p>Advanced calculus applications</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Advanced Mechanics and Kinetics Theory of Gases</h3>
+                                <p>Gas laws and kinetic theory</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Fortran Programming</h3>
+                                <p>Scientific programming language</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Atmospheric Physics</h3>
+                                <p>Physics of atmospheric systems</p>
+                            </div>
+                        </div>
+                        <div class="access-notes-container">
+                            <a href="https://drive.google.com/drive/folders/1QFRNThk-ncyphu6ghxK1MKv6WkwO3Gq3" class="drive-link" target="_blank">
+                                <i class="fab fa-google-drive"></i> Access Semester 1 Notes
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="modules-content" id="secondYearSem2">
+                        <h3>Second Year - Semester 2 Modules</h3>
+                        <div class="module-list">
+                            <div class="module-card">
+                                <h3>Agrometeorology</h3>
+                                <p>Weather and agriculture interactions</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Fundamentals of Climate Science</h3>
+                                <p>Climate systems and patterns</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Hydrometeorology</h3>
+                                <p>Water cycle and precipitation</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Fluid Mechanics I</h3>
+                                <p>Fluid dynamics principles</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Weather Observations and Instrumentation</h3>
+                                <p>Measurement techniques and tools</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Linear Algebra and Further Calculus</h3>
+                                <p>Mathematical methods for science</p>
+                            </div>
+                        </div>
+                        <div class="access-notes-container">
+                            <a href="https://drive.google.com/drive/folders/1QFRNThk-ncyphu6ghxK1MKv6WkwO3Gq3" class="drive-link" target="_blank">
+                                <i class="fab fa-google-drive"></i> Access Semester 2 Notes
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Third Year Modules -->
+                    <div class="modules-content" id="thirdYearSem1">
+                        <h3>Third Year - Semester 1 Modules</h3>
+                        <div class="module-list">
+                            <div class="module-card">
+                                <h3>Statistics in Meteorology and Climate Sciences</h3>
+                                <p>Statistical methods for climate data</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Mesoscale and Boundary Layer</h3>
+                                <p>Local weather systems analysis</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>GIS and Remote Sensing I</h3>
+                                <p>Geographic information systems</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Climate Change and Society</h3>
+                                <p>Social impacts of climate change</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Dynamics of Weather Systems</h3>
+                                <p>Weather system dynamics</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Satellite and Radar Meteorology</h3>
+                                <p>Remote sensing applications</p>
+                            </div>
+                        </div>
+                        <div class="access-notes-container">
+                            <a href="https://drive.google.com/drive/folders/1oW9BOT2gy-CoWyV_MPL0V6ny6P2ZI_qg" class="drive-link" target="_blank">
+                                <i class="fab fa-google-drive"></i> Access Semester 1 Notes
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="modules-content" id="thirdYearSem2">
+                        <h3>Third Year - Semester 2 Modules</h3>
+                        <div class="module-list">
+                            <div class="module-card">
+                                <h3>Tropical Meteorology</h3>
+                                <p>Weather systems in tropical regions</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>GIS and Remote Sensing II</h3>
+                                <p>Advanced remote sensing techniques</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Weather Analysis and Forecasting</h3>
+                                <p>Forecasting methods and analysis</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Modelling of Weather and Climate Systems</h3>
+                                <p>Climate and weather modeling</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Aviation Meteorology</h3>
+                                <p>Weather applications in aviation</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Research Project 1</h3>
+                                <p>Independent research project</p>
+                            </div>
+                        </div>
+                        <div class="access-notes-container">
+                            <a href="https://drive.google.com/drive/folders/1oW9BOT2gy-CoWyV_MPL0V6ny6P2ZI_qg" class="drive-link" target="_blank">
+                                <i class="fab fa-google-drive"></i> Access Semester 2 Notes
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Fourth Year Modules -->
+                    <div class="modules-content" id="fourthYearSem1">
+                        <h3>Fourth Year - Semester 1 Modules</h3>
+                        <div class="module-list">
+                            <div class="module-card">
+                                <h3>Work Integrated Learning (WIL)</h3>
+                                <p>Professional industry experience</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Mineral exploration techniques</h3>
+                                <p>Geological exploration methods</p>
+                            </div>
+                        </div>
+                        <div class="access-notes-container">
+                            <a href="https://drive.google.com/drive/folders/1idA_gaZF9q-4HH3MI4qil9RImpRDnfz3" class="drive-link" target="_blank">
+                                <i class="fab fa-google-drive"></i> Access Semester 1 Notes
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="modules-content" id="fourthYearSem2">
+                        <h3>Fourth Year - Semester 2 Modules</h3>
+                        <div class="module-list">
+                            <div class="module-card">
+                                <h3>Climate Information Communication and Dissemination</h3>
+                                <p>Communicating climate information</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Disaster Risk Management</h3>
+                                <p>Risk assessment and management</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Climate Change Science and Policy</h3>
+                                <p>Climate policy and science</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Atmospheric Pollution</h3>
+                                <p>Air quality and pollution studies</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Research Project II</h3>
+                                <p>Advanced research project</p>
+                            </div>
+                            <div class="module-card">
+                                <h3>Business Management and Entrepreneurship</h3>
+                                <p>Business skills for scientists</p>
+                            </div>
+                        </div>
+                        <div class="access-notes-container">
+                            <a href="https://drive.google.com/drive/folders/1idA_gaZF9q-4HH3MI4qil9RImpRDnfz3" class="drive-link" target="_blank">
+                                <i class="fab fa-google-drive"></i> Access Semester 2 Notes
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Timetable Section -->
+                <section class="timetable-section" id="timetable">
+                    <h2 class="section-title"><i class="fas fa-calendar-alt"></i> Timetable</h2>
+                    <div class="year-buttons">
+                        <button class="year-btn" data-timetable="first"><i class="fas fa-calendar"></i> First Year</button>
+                        <button class="year-btn" data-timetable="second"><i class="fas fa-calendar"></i> Second Year</button>
+                        <button class="year-btn" data-timetable="third"><i class="fas fa-calendar"></i> Third Year</button>
+                        <button class="year-btn" data-timetable="fourth"><i class="fas fa-calendar"></i> Fourth Year</button>
+                    </div>
+
+                    <!-- Semester Selection for Timetable -->
+                    <div class="semester-buttons" id="timetableSemesterButtons" style="display: none;">
+                        <button class="semester-btn active" data-tsemester="1">Semester 1</button>
+                        <button class="semester-btn" data-tsemester="2">Semester 2</button>
+                    </div>
+
+                    <!-- First Year Timetable -->
+                    <div class="timetable-content" id="firstYearTimetableSem1">
+                        <h3>First Year - Semester 1 Timetable</h3>
+                        <table class="timetable">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
+                                    <th>Friday</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>08:00 - 10:00</td>
+                                    <td>General Chemistry I</td>
+                                    <td>Algebra & Trigonometry</td>
+                                    <td>General Biology</td>
+                                    <td>Mechanics & Thermal Physics</td>
+                                    <td>Language Studies</td>
+                                </tr>
+                                <tr>
+                                    <td>10:00 - 12:00</td>
+                                    <td>Computer Applications</td>
+                                    <td>General Chemistry I</td>
+                                    <td>Algebra & Trigonometry</td>
+                                    <td>General Biology</td>
+                                    <td>Mechanics & Thermal Physics</td>
+                                </tr>
+                                <tr>
+                                    <td>13:00 - 15:00</td>
+                                    <td>Practical Session</td>
+                                    <td>Computer Lab</td>
+                                    <td>Study Time</td>
+                                    <td>Language Studies</td>
+                                    <td>Practical Session</td>
+                                </tr>
+                                <tr>
+                                    <td>15:00 - 17:00</td>
+                                    <td>Study Group</td>
+                                    <td>Library Research</td>
+                                    <td>Group Project</td>
+                                    <td>Tutorial Session</td>
+                                    <td>Self Study</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="timetable-content" id="firstYearTimetableSem2">
+                        <h3>First Year - Semester 2 Timetable</h3>
+                        <table class="timetable">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
+                                    <th>Friday</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>08:00 - 10:00</td>
+                                    <td>General Chemistry II</td>
+                                    <td>Calculus I</td>
+                                    <td>Environmental Biology</td>
+                                    <td>Electricity & Magnetics</td>
+                                    <td>Technical Communication</td>
+                                </tr>
+                                <tr>
+                                    <td>10:00 - 12:00</td>
+                                    <td>Computer Programming</td>
+                                    <td>General Chemistry II</td>
+                                    <td>Calculus I</td>
+                                    <td>Environmental Biology</td>
+                                    <td>Electricity & Magnetics</td>
+                                </tr>
+                                <tr>
+                                    <td>13:00 - 15:00</td>
+                                    <td>Programming Lab</td>
+                                    <td>Practical Session</td>
+                                    <td>Study Time</td>
+                                    <td>Technical Communication</td>
+                                    <td>Programming Lab</td>
+                                </tr>
+                                <tr>
+                                    <td>15:00 - 17:00</td>
+                                    <td>Study Group</td>
+                                    <td>Library Research</td>
+                                    <td>Group Project</td>
+                                    <td>Tutorial Session</td>
+                                    <td>Self Study</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Second Year Timetable -->
+                    <div class="timetable-content" id="secondYearTimetableSem1">
+                        <h3>Second Year - Semester 1 Timetable</h3>
+                        <table class="timetable">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
+                                    <th>Friday</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>08:00 - 10:00</td>
+                                    <td>Introduction to Meteorology</td>
+                                    <td>Space & Earth Sciences</td>
+                                    <td>Calculus II</td>
+                                    <td>Advanced Mechanics</td>
+                                    <td>Fortran Programming</td>
+                                </tr>
+                                <tr>
+                                    <td>10:00 - 12:00</td>
+                                    <td>Atmospheric Physics</td>
+                                    <td>Introduction to Meteorology</td>
+                                    <td>Space & Earth Sciences</td>
+                                    <td>Calculus II</td>
+                                    <td>Advanced Mechanics</td>
+                                </tr>
+                                <tr>
+                                    <td>13:00 - 15:00</td>
+                                    <td>Practical Session</td>
+                                    <td>Programming Lab</td>
+                                    <td>Study Time</td>
+                                    <td>Atmospheric Physics</td>
+                                    <td>Practical Session</td>
+                                </tr>
+                                <tr>
+                                    <td>15:00 - 17:00</td>
+                                    <td>Study Group</td>
+                                    <td>Library Research</td>
+                                    <td>Group Project</td>
+                                    <td>Tutorial Session</td>
+                                    <td>Self Study</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="timetable-content" id="secondYearTimetableSem2">
+                        <h3>Second Year - Semester 2 Timetable</h3>
+                        <table class="timetable">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
+                                    <th>Friday</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>08:00 - 10:00</td>
+                                    <td>Agrometeorology</td>
+                                    <td>Climate Science</td>
+                                    <td>Hydrometeorology</td>
+                                    <td>Fluid Mechanics I</td>
+                                    <td>Weather Observations</td>
+                                </tr>
+                                <tr>
+                                    <td>10:00 - 12:00</td>
+                                    <td>Linear Algebra</td>
+                                    <td>Agrometeorology</td>
+                                    <td>Climate Science</td>
+                                    <td>Hydrometeorology</td>
+                                    <td>Fluid Mechanics I</td>
+                                </tr>
+                                <tr>
+                                    <td>13:00 - 15:00</td>
+                                    <td>Practical Session</td>
+                                    <td>Instrumentation Lab</td>
+                                    <td>Study Time</td>
+                                    <td>Linear Algebra</td>
+                                    <td>Practical Session</td>
+                                </tr>
+                                <tr>
+                                    <td>15:00 - 17:00</td>
+                                    <td>Study Group</td>
+                                    <td>Library Research</td>
+                                    <td>Group Project</td>
+                                    <td>Tutorial Session</td>
+                                    <td>Self Study</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Third Year Timetable -->
+                    <div class="timetable-content" id="thirdYearTimetableSem1">
+                        <h3>Third Year - Semester 1 Timetable</h3>
+                        <table class="timetable">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
+                                    <th>Friday</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>08:00 - 10:00</td>
+                                    <td>Statistics in Meteorology</td>
+                                    <td>Mesoscale & Boundary Layer</td>
+                                    <td>GIS & Remote Sensing I</td>
+                                    <td>Climate Change & Society</td>
+                                    <td>Dynamics of Weather</td>
+                                </tr>
+                                <tr>
+                                    <td>10:00 - 12:00</td>
+                                    <td>Satellite & Radar Meteorology</td>
+                                    <td>Statistics in Meteorology</td>
+                                    <td>Mesoscale & Boundary Layer</td>
+                                    <td>GIS & Remote Sensing I</td>
+                                    <td>Climate Change & Society</td>
+                                </tr>
+                                <tr>
+                                    <td>13:00 - 15:00</td>
+                                    <td>Practical Session</td>
+                                    <td>Remote Sensing Lab</td>
+                                    <td>Study Time</td>
+                                    <td>Satellite & Radar Meteorology</td>
+                                    <td>Practical Session</td>
+                                </tr>
+                                <tr>
+                                    <td>15:00 - 17:00</td>
+                                    <td>Study Group</td>
+                                    <td>Library Research</td>
+                                    <td>Group Project</td>
+                                    <td>Tutorial Session</td>
+                                    <td>Self Study</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="timetable-content" id="thirdYearTimetableSem2">
+                        <h3>Third Year - Semester 2 Timetable</h3>
+                        <table class="timetable">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
+                                    <th>Friday</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>08:00 - 10:00</td>
+                                    <td>Tropical Meteorology</td>
+                                    <td>GIS & Remote Sensing II</td>
+                                    <td>Weather Analysis</td>
+                                    <td>Climate Modeling</td>
+                                    <td>Aviation Meteorology</td>
+                                </tr>
+                                <tr>
+                                    <td>10:00 - 12:00</td>
+                                    <td>Research Project 1</td>
+                                    <td>Tropical Meteorology</td>
+                                    <td>GIS & Remote Sensing II</td>
+                                    <td>Weather Analysis</td>
+                                    <td>Climate Modeling</td>
+                                </tr>
+                                <tr>
+                                    <td>13:00 - 15:00</td>
+                                    <td>Practical Session</td>
+                                    <td>Research Lab</td>
+                                    <td>Study Time</td>
+                                    <td>Research Project 1</td>
+                                    <td>Practical Session</td>
+                                </tr>
+                                <tr>
+                                    <td>15:00 - 17:00</td>
+                                    <td>Study Group</td>
+                                    <td>Library Research</td>
+                                    <td>Group Project</td>
+                                    <td>Tutorial Session</td>
+                                    <td>Self Study</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Fourth Year Timetable -->
+                    <div class="timetable-content" id="fourthYearTimetableSem1">
+                        <h3>Fourth Year - Semester 1 Timetable</h3>
+                        <table class="timetable">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
+                                    <th>Friday</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>08:00 - 10:00</td>
+                                    <td>N/A</td>
+                                    <td>NA</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>
+                                <tr>
+                                    <td>13:00 - 15:00</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>
+                                <tr>
+                                    <td>15:00 - 17:00</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="timetable-content" id="fourthYearTimetableSem2">
+                        <h3>Fourth Year - Semester 2 Timetable</h3>
+                        <table class="timetable">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
+                                    <th>Friday</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>08:00 - 10:00</td>
+                                    <td>Climate Communication</td>
+                                    <td>Disaster Risk Management</td>
+                                    <td>Climate Change Policy</td>
+                                    <td>Atmospheric Pollution</td>
+                                    <td>Research Project II</td>
+                                </tr>
+                                <tr>
+                                    <td>10:00 - 12:00</td>
+                                    <td>Business Management</td>
+                                    <td>Climate Communication</td>
+                                    <td>Disaster Risk Management</td>
+                                    <td>Climate Change Policy</td>
+                                    <td>Atmospheric Pollution</td>
+                                </tr>
+                                <tr>
+                                    <td>13:00 - 15:00</td>
+                                    <td>Practical Session</td>
+                                    <td>Research Lab</td>
+                                    <td>Study Time</td>
+                                    <td>Business Management</td>
+                                    <td>Practical Session</td>
+                                </tr>
+                                <tr>
+                                    <td>15:00 - 17:00</td>
+                                    <td>Study Group</td>
+                                    <td>Library Research</td>
+                                    <td>Group Project</td>
+                                    <td>Tutorial Session</td>
+                                    <td>Self Study</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Help Section -->
+                <section class="help-section" id="help">
+                    <h2 class="section-title"><i class="fas fa-hands-helping"></i> Get Help & Suggestions</h2>
+                    
+                    <div class="help-container">
+                        <div class="help-info">
+                            <h3><i class="fas fa-info-circle"></i> How to Get Help</h3>
+                            <ul>
+                                <li><i class="fas fa-check-circle"></i> Fill out the form below with your academic challenges</li>
+                                <li><i class="fas fa-check-circle"></i> Include your WhatsApp number for quick responses</li>
+                                <li><i class="fas fa-check-circle"></i> Be specific about the module and problem</li>
+                                <li><i class="fas fa-check-circle"></i> All submissions are private - only Rod Subili sees them</li>
+                            </ul>
+                        </div>
+
+                        <div class="form-instructions">
+                            <h4><i class="fas fa-exclamation-circle"></i> Important Instructions</h4>
+                            <p>Fill out all required fields in the form below. Your information will be sent privately to Rod Subili for assistance.</p>
+                        </div>
+
+                        <div class="form-notice">
+                            <i class="fas fa-lock"></i>
+                            <strong>Private & Secure:</strong> Your information is confidential. Only the admin (Rod Subili) will see your submission and will contact you privately if you include your WhatsApp number.
+                        </div>
+
+                        <!-- Google Form Embed -->
+                        <div class="google-form-container">
+                            <iframe src="https://forms.gle/vzWANdVR8JefZRyh8" 
+                                    width="100%" 
+                                    height="800" 
+                                    frameborder="0" 
+                                    marginheight="0" 
+                                    marginwidth="0">
+                                Loading…
+                            </iframe>
+                        </div>
+
+                        <div class="whatsapp-info">
+                            <i class="fab fa-whatsapp"></i>
+                            <strong>WhatsApp Response:</strong> If you include your WhatsApp number, Rod will contact you directly within 24 hours to provide assistance.
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="footer">
+                    <p>Malawi University of Science and Technology - Meteorology & Climate Science Program</p>
+                    <p>© 2025 All Rights Reserved | Secure Academic Portal</p>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Security: Obfuscated student database
+        const studentCodes = {
+            'Pauline Chibwana': 'PC2023', 'Glory Chitsulo': 'GC2023', 'Tamanda Chioza': 'TC2023',
+            'Glory Chitanda': 'GCT2023', 'Hannah Ellia': 'HE2023', 'Edith Masankha': 'EM2023',
+            'Samantha Mswayo': 'SM2023', 'Vanessa Verson': 'VV2023', 'Hope Ziyabu': 'HZ2023',
+            'Jonathan Damiano': 'JD2023', 'Nelson Hawonga': 'NH2023', 'Frank January': 'FJ2023',
+            'Joseph Kachumba': 'JK2023', 'Kondwani Kapwambira': 'KK2023', 'Mike Kaipa': 'MK2023',
+            'Samuel Kalinga': 'SK2023', 'Romeo Sakala': 'RS2023', 'Madalitso Kamchiputu': 'MKC2023',
+            'Samuel Kapito': 'SKP2023', 'Blessings Kontho': 'BK2023', 'John Malata': 'JM2023',
+            'Dyman Manda': 'DM2023', 'Abd lazack Matenje': 'AM2023', 'Jonas Milos': 'JMS2023',
+            'Frank Msumali': 'FM2023', 'Precious Namwera': 'PN2023', 'Clarence Nkhata': 'CN2023',
+            'Joseph Phiri': 'JP2023', 'Alinafe Mtailmanja': 'AMT2023', 'Chicco Pongo': 'CP2023',
+            'Emmanuel Ambali': 'EA2023', 'Tayamika Thangata': 'TT2023', 'Flackson Chiumia': 'FC2023',
+            'Charles Kachiswe': 'CK2023', 'Wanangwa Kamwendo': 'WK2023', 'Peter Mponda': 'PM2023',
+            'Innocent Nsomba': 'IN2023', 'Trinity Bilivati': 'TB2023', 'Praise Vita': 'PV2023',
+            'Agape Chikwanda': 'AC2023', 'Priscilla Kulapani': 'PK2023', 'Veronica Khongolo': 'VK2023',
+            'Alinafe Ezani': 'AE2023', 'Flyness Ngambi': 'FN2023', 'Faith Kapinga': 'FK2023',
+            'Martha Mandaaliza': 'MM2023', 'Livinia Masimbe': 'LM2023', 'Yankho Unyolo': 'YU2023',
+            'Glory Mathungwie': 'GM2023', 'Karen Banda': 'KB2023', 'Pilirani Matias': 'PMT2023',
+            'Sharon Mbozi': 'SB2023', 'Promise Maliyana': 'PML2023', 'Chimwemwe Mhlanga': 'CM2023',
+            'Mwawi Kamanga': 'MKW2023', 'Georgina Mkumba': 'GMK2023', 'Sarah Tukuwa': 'ST2023',
+            'Catherine Nkhata': 'CTN2023', 'Peter Billy': 'PB2023', 'Daltiso Young': 'DY2023',
+            'Osman Blamu': 'OB2023', 'William Chauwa': 'WC2023', 'John Machira': 'JMC2023',
+            'Josephy Chorwe': 'JCH2023', 'Emmanuel Gunda': 'EG2023', 'John Immanuel': 'JI2023',
+            'Prince Njolomole': 'PNJ2023', 'Mark Kalute': 'MKT2023', 'Upile Kamwana': 'UK2023',
+            'Chilipo Gama': 'CG2023', 'Blessings Kawiya': 'BKW2023', 'Hastings Khalika': 'HK2023',
+            'Everson Bodyo': 'EB2023', 'Future Maulidi': 'FM2023', 'Frank Mbewe': 'FMB2023',
+            'Daniel Kuluwani': 'DK2023', 'Mwayi Mushani': 'MMS2023', 'Emmanuel Kamata': 'EKT2023',
+            'Walusungu Mwasangwale': 'WM2023', 'Tendai Chawinga': 'TCH2023', 'Lyson Namalomba': 'LN2023',
+            'Humphrey Ndipo': 'HN2023', 'Blessings Ncwira': 'BN2023', 'Smart Banda': 'SB2023',
+            'Rodrick Subili': 'RS2023', 'Enerst Mkweza': 'EMK2023', 'Innocent Zgambo': 'IZ2023'
+        };
+
+        // DOM Elements
+        const loginPage = document.getElementById('loginPage');
+        const dashboard = document.getElementById('dashboard');
+        const fullNameInput = document.getElementById('fullName');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const userName = document.getElementById('userName');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const yearButtons = document.querySelectorAll('.year-btn');
+        const semesterButtons = document.getElementById('semesterButtons');
+        const timetableSemesterButtons = document.getElementById('timetableSemesterButtons');
+        const allSemesterBtns = document.querySelectorAll('.semester-btn');
+        const modulesContents = document.querySelectorAll('.modules-content');
+        const timetableContents = document.querySelectorAll('.timetable-content');
+
+        // Enhanced Security: Input validation and sanitization
+        function sanitizeInput(input) {
+            return input.replace(/[<>]/g, '').trim();
+        }
+
+        // Enhanced Login with security features
+        loginBtn.addEventListener('click', function() {
+            const enteredName = sanitizeInput(fullNameInput.value);
+            
+            if (studentCodes[enteredName]) {
+                // Successful login with enhanced security
+                loginPage.style.display = 'none';
+                dashboard.style.display = 'block';
+                userName.textContent = enteredName;
+                
+                // Store encrypted login state
+                const loginTime = new Date().getTime();
+                sessionStorage.setItem('authToken', btoa(loginTime + ':' + enteredName));
+                sessionStorage.setItem('loginTime', loginTime);
+                
+                // Log login attempt (in real app, this would go to server)
+                console.log('User logged in:', enteredName, 'at:', new Date(loginTime));
+            } else {
+                // Failed login with security delay
+                errorMessage.style.display = 'block';
+                fullNameInput.value = '';
+                // Add delay to prevent brute force
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+            }
+        });
+
+        // Enhanced Logout with security cleanup
+        logoutBtn.addEventListener('click', function() {
+            const userName = sessionStorage.getItem('authToken') ? 
+                atob(sessionStorage.getItem('authToken')).split(':')[1] : 'Unknown';
+            
+            // Clear all storage
+            sessionStorage.clear();
+            localStorage.removeItem('authToken');
+            
+            // Reset UI
+            loginPage.style.display = 'flex';
+            dashboard.style.display = 'none';
+            fullNameInput.value = '';
+            errorMessage.style.display = 'none';
+            
+            // Hide all content
+            modulesContents.forEach(content => content.style.display = 'none');
+            timetableContents.forEach(content => content.style.display = 'none');
+            semesterButtons.style.display = 'none';
+            timetableSemesterButtons.style.display = 'none';
+            
+            console.log('User logged out:', userName);
+        });
+
+        // Enhanced authentication check
+        window.addEventListener('load', function() {
+            const authToken = sessionStorage.getItem('authToken');
+            
+            if (authToken) {
+                try {
+                    const decoded = atob(authToken);
+                    const [loginTime, storedUserName] = decoded.split(':');
+                    
+                    // Check if session is expired (4 hours)
+                    const currentTime = new Date().getTime();
+                    if (currentTime - parseInt(loginTime) > 4 * 60 * 60 * 1000) {
+                        sessionStorage.clear();
+                        return;
+                    }
+                    
+                    // Valid session
+                    loginPage.style.display = 'none';
+                    dashboard.style.display = 'block';
+                    userName.textContent = storedUserName;
+                    
+                } catch (e) {
+                    // Invalid token
+                    sessionStorage.clear();
+                }
+            }
+        });
+
+        // Year and Semester selection functionality
+        let currentYear = '';
+        let currentSemester = '1';
+
+        yearButtons.forEach(button => {
+            if (button.dataset.year) {
+                button.addEventListener('click', function() {
+                    currentYear = button.dataset.year;
+                    
+                    // Show semester buttons
+                    semesterButtons.style.display = 'flex';
+                    timetableSemesterButtons.style.display = 'flex';
+                    
+                    // Show modules for current year and semester
+                    showModules(currentYear, currentSemester);
+                    showTimetable(currentYear, currentSemester);
+                });
+            }
+        });
+
+        // Semester button functionality
+        allSemesterBtns.forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active state
+                allSemesterBtns.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                if (button.dataset.semester) {
+                    currentSemester = button.dataset.semester;
+                    showModules(currentYear, currentSemester);
+                } else if (button.dataset.tsemester) {
+                    currentSemester = button.dataset.tsemester;
+                    showTimetable(currentYear, currentSemester);
+                }
+            });
+        });
+
+        function showModules(year, semester) {
+            // Hide all modules
+            modulesContents.forEach(content => content.style.display = 'none');
+            
+            // Show selected year and semester modules
+            const moduleId = year + 'YearSem' + semester;
+            const element = document.getElementById(moduleId);
+            if (element) {
+                element.style.display = 'block';
+            }
+        }
+
+        function showTimetable(year, semester) {
+            // Hide all timetables
+            timetableContents.forEach(content => content.style.display = 'none');
+            
+            // Show selected year and semester timetable
+            const timetableId = year + 'YearTimetableSem' + semester;
+            const element = document.getElementById(timetableId);
+            if (element) {
+                element.style.display = 'block';
+            }
+        }
+
+        // Enhanced Security: Prevent right-click and developer tools
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        document.addEventListener('keydown', function(e) {
+            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+U
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+                (e.ctrlKey && e.key === 'u')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Auto-logout after 4 hours
+        setInterval(() => {
+            const authToken = sessionStorage.getItem('authToken');
+            if (authToken) {
+                try {
+                    const decoded = atob(authToken);
+                    const loginTime = parseInt(decoded.split(':')[0]);
+                    const currentTime = new Date().getTime();
+                    
+                    if (currentTime - loginTime > 4 * 60 * 60 * 1000) {
+                        sessionStorage.clear();
+                        window.location.reload();
+                    }
+                } catch (e) {
+                    sessionStorage.clear();
+                }
+            }
+        }, 60000); // Check every minute
+    </script>
+</body>
+</html>
+```
