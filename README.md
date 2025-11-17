@@ -1,2 +1,2 @@
 # MEC-website
-A site or portal for academic assistance 
+ meteorology and climate science 
